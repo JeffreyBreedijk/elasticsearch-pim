@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ElasticSearch.Models;
 using Nest;
@@ -8,13 +9,20 @@ namespace ElasticSearch.Services.ElasticSearch
     public static class ElasticQueryHelper
     {
        
-        public static QueryContainer QueryBuilder(string queryString, string lang, Dictionary<string, string> properties)
+        public static QueryContainer QueryBuilder(string queryString, string lang, Dictionary<string, string> properties, 
+            string category)
         {
+            var qc = new QueryContainer();
+            qc =  qc &= TextQuery(queryString, lang);
             if (properties != null && properties.Count > 0)
             {
-                return TextQuery(queryString, lang) && PropertiesQuery(properties);
+                 qc = qc &= StringPropertiesQuery(properties);
             }
-            return TextQuery(queryString, lang);
+            if (category != null)
+            {
+                qc &= CategoryQuery(category);
+            }
+            return qc;
         }
 
         private static MultiMatchQuery TextQuery(string queryString, string lang)
@@ -33,19 +41,30 @@ namespace ElasticSearch.Services.ElasticSearch
             };
         }
         
-        private static BoolQuery PropertiesQuery(Dictionary<string, string> properties)
+        private static BoolQuery StringPropertiesQuery(Dictionary<string, string> properties)
         {
             return new BoolQuery()
             {
-                Must = properties.Select(p => ProduceQueryContainer("properties.", p.Key, p.Value)).ToArray()
+                Must = properties.Select(p => FieldMatch("properties." + p.Key, p.Value)).ToArray()
+            };
+        }
+        
+        private static BoolQuery CategoryQuery(string categoryId)
+        {
+            return new BoolQuery()
+            {
+                Must = new List<QueryContainer>()
+                {
+                    FieldMatch("categories", categoryId)
+                }
             };
         }
 
-        private static QueryContainer ProduceQueryContainer(string prefix, string key, string value)
+        private static QueryContainer FieldMatch(string field, string value)
         {
             return Query<Product>
                 .Match(m => 
-                    m.Field(prefix + key)
+                    m.Field(field)
                         .Query(value));
         }
     }

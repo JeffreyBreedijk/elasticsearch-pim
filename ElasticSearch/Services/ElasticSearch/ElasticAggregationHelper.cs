@@ -8,7 +8,7 @@ namespace ElasticSearch.Services.ElasticSearch
     {
         public static AggregationDictionary AggregationBuilder(List<string> propertyFieldNames)
         {
-            return StringAggregations(propertyFieldNames);
+            return propertyFieldNames == null ? null : StringAggregations(propertyFieldNames);
         }
         
         private static AggregationDictionary StringAggregations(IEnumerable<string> propertyFieldNames)

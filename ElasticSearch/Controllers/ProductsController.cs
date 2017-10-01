@@ -34,7 +34,7 @@ namespace ElasticSearch.Controllers
             [FromQuery] int size, [FromQuery] string lang, [FromBody] ProductSearchRequest requestBody)
         {
             return _productQueryService.FindByStringAndProperty(query, string.IsNullOrEmpty(lang) ? "default" : 
-                lang, from, size == 0 ? 10 : size, requestBody.Properties, requestBody.Aggregations);
+                lang, from, size == 0 ? 10 : size, requestBody.Properties, requestBody.Category, requestBody.Aggregations);
         }
  
 
