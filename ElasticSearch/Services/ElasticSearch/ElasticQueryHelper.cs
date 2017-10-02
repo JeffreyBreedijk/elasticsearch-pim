@@ -9,14 +9,21 @@ namespace ElasticSearch.Services.ElasticSearch
     public static class ElasticQueryHelper
     {
        
-        public static QueryContainer QueryBuilder(string queryString, string lang, Dictionary<string, string> properties, 
+        public static QueryContainer QueryBuilder(string queryString, 
+            string lang, 
+            Dictionary<string, string> stringProperties, 
+            Dictionary<string, NumericQuery> numericProperties,
             string category)
         {
             var qc = new QueryContainer();
             qc =  qc &= TextQuery(queryString, lang);
-            if (properties != null && properties.Count > 0)
+            if (stringProperties != null && stringProperties.Count > 0)
             {
-                 qc = qc &= StringPropertiesQuery(properties);
+                 qc = qc &= StringPropertiesQuery(stringProperties);
+            }
+            if (numericProperties != null && numericProperties.Count > 0)
+            {
+                qc = qc &= NumericPropertiesQuery(numericProperties);
             }
             if (category != null)
             {
@@ -41,11 +48,19 @@ namespace ElasticSearch.Services.ElasticSearch
             };
         }
         
-        private static BoolQuery StringPropertiesQuery(Dictionary<string, string> properties)
+        private static BoolQuery StringPropertiesQuery(Dictionary<string, string> stringProperties)
         {
             return new BoolQuery()
             {
-                Must = properties.Select(p => FieldMatch("properties." + p.Key, p.Value)).ToArray()
+                Must = stringProperties.Select(p => StringFieldMatch(p.Key, p.Value)).ToArray()
+            };
+        }
+        
+        private static BoolQuery NumericPropertiesQuery(Dictionary<string, NumericQuery> numericProperties)
+        {
+            return new BoolQuery()
+            {
+                Must = numericProperties.Select(p => NumericFieldMatch(p.Key, p.Value)).ToArray()
             };
         }
         
@@ -55,17 +70,28 @@ namespace ElasticSearch.Services.ElasticSearch
             {
                 Must = new List<QueryContainer>()
                 {
-                    FieldMatch("categories", categoryId)
+                    StringFieldMatch("categories", categoryId)
                 }
             };
         }
 
-        private static QueryContainer FieldMatch(string field, string value)
+        private static QueryContainer StringFieldMatch(string field, string value)
         {
-            return Query<Product>
-                .Match(m => 
-                    m.Field(field)
-                        .Query(value));
+            return new MatchQuery()
+            {
+                Field = "properties." + field,
+                Query = value
+            };
+        }
+        
+        private static QueryContainer NumericFieldMatch(string field, NumericQuery value)
+        {
+            return new NumericRangeQuery()
+            {
+                Field = "properties." + field,
+                GreaterThanOrEqualTo = value.GreaterThanOrEqual,
+                LessThanOrEqualTo = value.LessThanOrEqual
+            };
         }
     }
 }
