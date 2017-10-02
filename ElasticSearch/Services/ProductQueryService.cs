@@ -16,7 +16,7 @@ namespace ElasticSearch.Services
         ProductSearchResult FindByStringAndProperty(string searchString, string lang, int from, int size,
             Dictionary<string, string> stringProperties, 
             Dictionary<string, NumericQuery> numericProperties, 
-            string category, List<string> stringAggregations);
+            string category, List<string> stringAggregations, List<string> numericAggregations);
     }
 
     public class ProductQueryServiceElastic : IProductQueryService
@@ -37,12 +37,12 @@ namespace ElasticSearch.Services
             Dictionary<string, string> stringProperties, 
             Dictionary<string, NumericQuery> numericProperties, 
             string category, 
-            List<string> stringAggregations)
+            List<string> stringAggregations, List<string> numericAggregations)
         {
             var x = _client.Search<Product>(new SearchRequest<Product>
             {
                 Query = QueryBuilder(searchString, lang, stringProperties, numericProperties, category),
-                Aggregations = AggregationBuilder(stringAggregations),
+                Aggregations = AggregationBuilder(stringAggregations, numericAggregations),
                 From = from,
                 Size = size
             });

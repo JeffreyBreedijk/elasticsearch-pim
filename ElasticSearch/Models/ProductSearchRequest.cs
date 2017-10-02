@@ -7,8 +7,8 @@ namespace ElasticSearch.Models
         public Dictionary<string, string> StringProperties { get; set; }
         public Dictionary<string, NumericQuery> NumericProperties { get; set; }
         public string Category { get; set; }
-        public List<string> Aggregations { get; set; }
-
+        public List<string> StringAggregations { get; set; }
+        public List<string> NumericAggregations { get; set; }
     }
 
     public class NumericQuery

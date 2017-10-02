@@ -6,14 +6,19 @@ namespace ElasticSearch.Services.ElasticSearch
 {
     public static class ElasticAggregationHelper
     {
-        public static AggregationDictionary AggregationBuilder(List<string> propertyFieldNames)
-        {
-            return propertyFieldNames == null ? null : StringAggregations(propertyFieldNames);
-        }
-        
-        private static AggregationDictionary StringAggregations(IEnumerable<string> propertyFieldNames)
+        public static AggregationDictionary AggregationBuilder(List<string> stringPropertyFieldNames, 
+            List<string> numericPropertyFieldNames)
         {
             var aggregationDict = new AggregationDictionary();
+            if (stringPropertyFieldNames != null && stringPropertyFieldNames.Count > 0) 
+                StringAggregations(aggregationDict, stringPropertyFieldNames);
+            if (numericPropertyFieldNames != null && numericPropertyFieldNames.Count > 0)
+                NumericAggregations(aggregationDict, numericPropertyFieldNames);
+            return aggregationDict;
+        }
+        
+        private static void StringAggregations(AggregationDictionary aggregationDict, IEnumerable<string> propertyFieldNames)
+        {
             foreach (var propertyFieldName in propertyFieldNames)
             {
                 aggregationDict.Add(propertyFieldName, new TermsAggregation(propertyFieldName)
@@ -21,7 +26,20 @@ namespace ElasticSearch.Services.ElasticSearch
                     Field = string.Format("properties.{0}.keyword", propertyFieldName)
                 });
             }
-            return aggregationDict.Any() ? aggregationDict : null;
+        }
+
+        private static void NumericAggregations(AggregationDictionary aggregationDict, 
+            IEnumerable<string> propertyFieldNames)
+        {
+            foreach (var propertyFieldName in propertyFieldNames)
+            {
+                aggregationDict.Add(propertyFieldName + ".max",
+                    new MaxAggregation(propertyFieldName, string.Format("properties.{0}", propertyFieldName)));
+                aggregationDict.Add(propertyFieldName + ".min",
+                    new MinAggregation(propertyFieldName, string.Format("properties.{0}", propertyFieldName)));
+                aggregationDict.Add(propertyFieldName + ".avg",
+                    new AverageAggregation(propertyFieldName, string.Format("properties.{0}", propertyFieldName)));
+            }
         }
     }
 }
