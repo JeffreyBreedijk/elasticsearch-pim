@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using ElasticSearch.Models;
+﻿using ElasticSearch.Models;
 using ElasticSearch.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,6 +28,7 @@ namespace ElasticSearch.Controllers
         public object GetBySearchStringAndProperties([FromQuery] string query, [FromQuery] int from, 
             [FromQuery] int size, [FromQuery] string lang, [FromBody] ProductSearchRequest requestBody)
         {
+            if (requestBody == null) requestBody = new ProductSearchRequest();
             return _productQueryService.FindByStringAndProperty(query, string.IsNullOrEmpty(lang) ? "default" : 
                 lang, from, size == 0 ? 10 : size, requestBody.StringProperties, requestBody.NumericProperties, requestBody.Category, requestBody.StringAggregations, requestBody.NumericAggregations);
         }
