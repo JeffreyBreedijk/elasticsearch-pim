@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ElasticSearch.Config;
+﻿using ElasticSearch.Config;
 using ElasticSearch.Services;
 using ElasticSearch.Services.ElasticSearch;
 using Microsoft.AspNetCore.Builder;

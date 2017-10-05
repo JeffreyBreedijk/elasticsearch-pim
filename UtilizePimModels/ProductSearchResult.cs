@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ElasticSearch.Models
+namespace UtilizePimModels
 {
     public class ProductSearchResult
     {

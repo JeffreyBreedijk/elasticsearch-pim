@@ -1,6 +1,6 @@
-﻿using ElasticSearch.Models;
-using ElasticSearch.Services;
+﻿using ElasticSearch.Services;
 using Microsoft.AspNetCore.Mvc;
+using UtilizePimModels;
 
 namespace ElasticSearch.Controllers
 {

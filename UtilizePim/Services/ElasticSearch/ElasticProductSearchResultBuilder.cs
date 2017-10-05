@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ElasticSearch.Models;
 using Nest;
+using UtilizePimModels;
 
 namespace ElasticSearch.Services.ElasticSearch
 {

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Nest;
 
-namespace ElasticSearch.Models
+namespace UtilizePimModels
 {
     public class Product
     {

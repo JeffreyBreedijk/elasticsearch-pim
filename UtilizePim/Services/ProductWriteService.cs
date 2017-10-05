@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Elasticsearch.Net;
 using ElasticSearch.Config;
-using ElasticSearch.Models;
 using ElasticSearch.Services.ElasticSearch;
 using Microsoft.Extensions.Options;
 using Nest;
+using UtilizePimModels;
 
 namespace ElasticSearch.Services
 {
