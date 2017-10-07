@@ -1,13 +1,9 @@
 ﻿using System.Collections.Generic;
-using ElasticSearch.Services.ElasticSearch;
 using Nest;
+using UtilizePim.Services.ElasticSearch;
 using UtilizePimModels;
-using static ElasticSearch.Services.ElasticSearch.ElasticAggregationHelper;
-using static ElasticSearch.Services.ElasticSearch.ElasticProductSearchResultBuilder;
-using static ElasticSearch.Services.ElasticSearch.ElasticQueryHelper;
 
-
-namespace ElasticSearch.Services
+namespace UtilizePim.Services
 {
     public interface IProductQueryService
     {
@@ -41,12 +37,12 @@ namespace ElasticSearch.Services
         {
             var x = _client.Search<Product>(new SearchRequest<Product>
             {
-                Query = QueryBuilder(searchString, lang, stringProperties, numericProperties, category),
-                Aggregations = AggregationBuilder(stringAggregations, numericAggregations),
+                Query = ElasticQueryHelper.QueryBuilder(searchString, lang, stringProperties, numericProperties, category),
+                Aggregations = ElasticAggregationHelper.AggregationBuilder(stringAggregations, numericAggregations),
                 From = from,
                 Size = size
             });
-            return BuildProductSearchResult(x);
+            return ElasticProductSearchResultBuilder.BuildProductSearchResult(x);
 
         }
 

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Elasticsearch.Net;
-using ElasticSearch.Config;
 using Microsoft.Extensions.Options;
 using Nest;
+using UtilizePim.Config;
 
-namespace ElasticSearch.Services.ElasticSearch
+namespace UtilizePim.Services.ElasticSearch
 {
     public interface IElasticSearchClientManager
     {

@@ -1,8 +1,8 @@
-﻿using ElasticSearch.Services;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using UtilizePim.Services;
 using UtilizePimModels;
 
-namespace ElasticSearch.Controllers
+namespace UtilizePim.Controllers
 {
     [Route("api/[controller]")]
     public class ProductsController : Controller

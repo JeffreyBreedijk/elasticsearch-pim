@@ -1,13 +1,13 @@
-﻿using ElasticSearch.Config;
-using ElasticSearch.Services;
-using ElasticSearch.Services.ElasticSearch;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using UtilizePim.Config;
+using UtilizePim.Services;
+using UtilizePim.Services.ElasticSearch;
 
-namespace ElasticSearch
+namespace UtilizePim
 {
     public class Startup
     {

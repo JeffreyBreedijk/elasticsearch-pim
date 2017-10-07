@@ -2,5 +2,6 @@
 /UtilizePim/appsettings.Development.json
 /UtilizePim/obj
 /UtilizePimModels/obj
+/UtilizePimModels/bin
 /UtilizePim/bin
 *.user

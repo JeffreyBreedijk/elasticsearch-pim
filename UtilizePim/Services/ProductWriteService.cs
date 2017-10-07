@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Elasticsearch.Net;
-using ElasticSearch.Config;
-using ElasticSearch.Services.ElasticSearch;
-using Microsoft.Extensions.Options;
-using Nest;
+﻿using Nest;
+using UtilizePim.Services.ElasticSearch;
 using UtilizePimModels;
 
-namespace ElasticSearch.Services
+namespace UtilizePim.Services
 {
     public interface IProductWriteService
     {

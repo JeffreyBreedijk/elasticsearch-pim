@@ -1,4 +1,4 @@
-﻿namespace ElasticSearch.Config
+﻿namespace UtilizePim.Config
 {
     public class ElasticConfig
     {
