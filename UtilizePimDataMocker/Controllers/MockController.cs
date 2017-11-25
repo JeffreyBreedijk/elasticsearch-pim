@@ -18,14 +18,17 @@ namespace UtilizePimDataMocker.Controllers
         {
             _productSender = sender;
         }
-        
-        
+
+
         [HttpPost]
-        public async Task<HttpStatusCode> Generate([FromQuery] int count)
+        public HttpResponseMessage Generate([FromQuery] int count)
         {
-            var product = MockProductBuilder.GenerateProduct();
-            var result = await _productSender.SendProduct(product);
-            return result;
+            for (var i = 0; i < count; i++)
+            {
+                var product = MockProductBuilder.GenerateProduct();
+                var result = _productSender.SendProduct(product);
+            }
+            return new HttpResponseMessage(HttpStatusCode.Created);
         }
     }
 }
