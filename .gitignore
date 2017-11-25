@@ -4,4 +4,10 @@
 /UtilizePimModels/obj
 /UtilizePimModels/bin
 /UtilizePim/bin
+
+/UtilizePimDataMocker/appsettings.Development.json
+/UtilizePimDataMocker/obj
+/UtilizePimDataMocker/bin
+
+
 *.user
