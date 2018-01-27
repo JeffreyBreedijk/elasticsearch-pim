@@ -10,6 +10,7 @@ namespace UtilizePimModels
         public Dictionary<string, double> Unit { get; set; }
         public Dictionary<string, object> Properties { get; set; } 
         public List<string> Categories { get; set; }
+        public string ProductVariantKey { get; set; }
         
     }
 }
