@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using UtilizePim.Config;
 using UtilizePim.Services;
 using UtilizePim.Services.ElasticSearch;
@@ -39,12 +40,18 @@ namespace UtilizePim
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, 
+            IElasticSearchClientManager clientManager, IOptions<ElasticConfig> elasticConfig)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
             app.UseMvc();
+
+            var index = elasticConfig.Value.IndexName;
+            if (!clientManager.GetClient().IndexExists(index).Exists)
+                clientManager.GetClient().CreateIndex(index);
+
         }
     }
 }

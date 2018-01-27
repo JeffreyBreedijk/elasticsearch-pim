@@ -32,7 +32,7 @@ namespace UtilizePim.Services.ElasticSearch
         private ElasticClient InitClient()
         {
             var settings = new ConnectionSettings(InitConnectionPool(_elasticConfig.Hosts))
-                .DefaultIndex(_elasticConfig.Index);
+                .DefaultIndex(_elasticConfig.IndexName);
             if (_elasticConfig.UseAuthentication)
                 settings.BasicAuthentication(_elasticConfig.Username, _elasticConfig.Password);
             return new ElasticClient(settings);
