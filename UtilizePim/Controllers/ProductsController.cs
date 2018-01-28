@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net;
+using System.Net.Http;
+using Microsoft.AspNetCore.Mvc;
 using UtilizePim.Services;
 using UtilizePimModels;
 
@@ -35,9 +37,9 @@ namespace UtilizePim.Controllers
  
 
         [HttpPut]
-        public void UpdateProduct([FromBody] Product product)
+        public IActionResult UpdateProduct([FromBody] Product product)
         {
-            _productWriteService.StoreProduct(product);
+            return _productWriteService.StoreProduct(product) ? StatusCode(200) : StatusCode(500);
         }
         
     }
