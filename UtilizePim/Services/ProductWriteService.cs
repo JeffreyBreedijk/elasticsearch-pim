@@ -22,7 +22,7 @@ namespace UtilizePim.Services
         {
             
             var x =  _client.Index(product);
-                return x.Created;
+            return x.Result.Equals(Nest.Result.Created) || x.Result.Equals(Nest.Result.Updated);
         }
        
     }
