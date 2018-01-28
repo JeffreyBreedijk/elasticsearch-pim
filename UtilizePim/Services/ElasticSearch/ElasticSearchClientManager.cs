@@ -30,8 +30,8 @@ namespace UtilizePim.Services.ElasticSearch
         }
         
         private ElasticClient InitClient()
-        {
-            var settings = new ConnectionSettings(InitConnectionPool(_elasticConfig.Hosts))
+        {  
+            var settings = new ConnectionSettings(InitConnectionPool(_elasticConfig.GetHosts()))
                 .DefaultIndex(_elasticConfig.IndexName);
             if (_elasticConfig.UseAuthentication)
                 settings.BasicAuthentication(_elasticConfig.Username, _elasticConfig.Password);
@@ -44,7 +44,7 @@ namespace UtilizePim.Services.ElasticSearch
             {
                 return new SingleNodeConnectionPool(new Uri(hosts[0]));
             }
-            return new SniffingConnectionPool(_elasticConfig.Hosts.Select(h => new Uri(h)).ToArray());    
+            return new SniffingConnectionPool(_elasticConfig.GetHosts().Select(h => new Uri(h)).ToArray());    
         }
     }
 }
