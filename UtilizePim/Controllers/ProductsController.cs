@@ -1,8 +1,8 @@
 ﻿using System.Net;
 using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
+using UtilizePim.Models;
 using UtilizePim.Services;
-using UtilizePimModels;
 
 namespace UtilizePim.Controllers
 {

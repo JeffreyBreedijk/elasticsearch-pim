@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Nest;
+using UtilizePim.Models;
 using UtilizePim.Services.ElasticSearch;
-using UtilizePimModels;
 
 namespace UtilizePim.Services
 {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace UtilizePimModels
+namespace UtilizePim.Models
 {
     public class ProductSearchRequest
     {
