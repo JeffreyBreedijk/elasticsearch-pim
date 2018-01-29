@@ -42,5 +42,11 @@ namespace UtilizePim.Controllers
             return _productWriteService.StoreProduct(product) ? StatusCode(200) : StatusCode(500);
         }
         
+        [HttpDelete]
+        [Route("{productId}")]
+        public IActionResult DeleteProduct(string productId)
+        {
+            return _productWriteService.DeleteProduct(productId) ? StatusCode(200) : StatusCode(500);
+        }
     }
 }
