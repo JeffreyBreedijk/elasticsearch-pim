@@ -15,7 +15,7 @@ namespace UtilizePim.Models
         public string ProductVariantKey { get; set; }
         public HashSet<string> CustomerGrants { get; set; }
         public HashSet<string> CustomerExclusions { get; set; }
-        public Dictionary<string, Dictionary<double, double>> Price { get; set; }
+        public Dictionary<string, double> Price { get; set; }
         
     }
 }
