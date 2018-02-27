@@ -5,8 +5,6 @@ namespace UtilizePim.Models
     public class Product
     {
         public string Id { get; set; }
-        public bool ShowOnWebshop { get; set; }
-        public bool IsDeleted { get; set; }
         public Dictionary<string, string> ShortDescription { get; set; }
         public Dictionary<string, string> LongDescription { get; set; }
         public Dictionary<string, double> Unit { get; set; }
@@ -15,7 +13,9 @@ namespace UtilizePim.Models
         public string ProductVariantKey { get; set; }
         public HashSet<string> CustomerGrants { get; set; }
         public HashSet<string> CustomerExclusions { get; set; }
-        public Dictionary<string, double> Price { get; set; }
+        public double DefaultPrice { get; set; }
+        public Dictionary<string, double> PriceList { get; set; }
+        public Dictionary<string, double> DebtorPrice { get; set; }
         
     }
 }
